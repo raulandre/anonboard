@@ -1,4 +1,12 @@
 app:
   port: 6969
   log: true
-  
+
+db:
+  username: "postgres"
+  password: "1234"
+  database: "anonboard"
+  host: "localhost"
+  port: "5432"
+  log: true
+  sync: true
