@@ -11,21 +11,6 @@ func sync(db *gorm.DB) error {
 		{
 			ID: "initial",
 			Migrate: func(tx *gorm.DB) error {
-				if err := tx.Exec("CREATE DATABASE IF NOT EXISTS anonboard").Error; err != nil {
-					return err
-				}
-				return nil
-			},
-			Rollback: func(tx *gorm.DB) error {
-				if err := tx.Exec("DROP DATABASE IF EXISTS anonboard").Error; err != nil {
-					return err
-				}
-				return nil
-			},
-		},
-		{
-			ID: "create_tables",
-			Migrate: func(tx *gorm.DB) error {
 				if err := tx.AutoMigrate(
 					&models.Thread{},
 					&models.Reply{},
