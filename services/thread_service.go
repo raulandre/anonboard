@@ -34,6 +34,9 @@ func (ts *threadService) List(page int, pageSize int) (*[]models.Thread, error) 
 	}
 
 	res := ts.db.
+		Preload("Replies", func(db *gorm.DB) *gorm.DB {
+			return db.Limit(10)
+		}).
 		Order("bumped_on DESC").
 		Limit(pageSize).
 		Offset(offset).
@@ -45,6 +48,9 @@ func (ts *threadService) List(page int, pageSize int) (*[]models.Thread, error) 
 func (ts *threadService) GetById(id string) (*models.Thread, error) {
 	var t models.Thread
 	res := ts.db.
+		Preload("Replies", func(db *gorm.DB) *gorm.DB {
+			return db.Limit(10)
+		}).
 		Where("id = ?", id).
 		First(&t)
 	return &t, res.Error

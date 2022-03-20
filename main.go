@@ -15,9 +15,13 @@ func main() {
 	conn := database.NewDbConnection(c)
 
 	ts := services.NewThreadService(conn)
+	rs := services.NewReplyService(conn)
+
 	tc := controllers.NewThreadController(ts)
+	rc := controllers.NewReplyController(rs)
 
 	r.RegisterThreadRoutes(tc)
+	r.RegisterReplyRoutes(rc)
 
 	r.Serve()
 }

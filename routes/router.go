@@ -10,6 +10,7 @@ type Router interface {
 	gin.IRouter
 	Serve() error
 	RegisterThreadRoutes(c controllers.ThreadController)
+	RegisterReplyRoutes(c controllers.ReplyController)
 }
 
 type router struct {
@@ -29,6 +30,8 @@ func NewRouter(c *config.Config) Router {
 	if config.GetBool("app.log") {
 		r.Use(gin.Logger())
 	}
+
+	setupDefaults(r)
 
 	return &router{
 		c:      c,
